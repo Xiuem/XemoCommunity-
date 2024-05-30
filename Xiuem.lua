@@ -833,7 +833,7 @@ local FastDelay = Tabs.S:AddDropdown("FastDelay", {
     Default = 1,
 })
 
-FastDelay:SetValue("0.175")
+FastDelay:SetValue("0.15")
 
 FastDelay:OnChanged(function(Value)
     _G.FastAttackDelay = Value
