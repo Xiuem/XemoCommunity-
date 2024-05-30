@@ -710,6 +710,185 @@ spawn(function()
     end)
   end)
 
+function StopTween(target)
+        if not target then
+            _G.StopTween = true
+            wait()
+            topos(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+            wait()
+            if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
+                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
+            end
+            _G.StopTween = false
+            _G.Clip = false
+        end
+    end
+    
+    spawn(function()
+        pcall(function()
+            while wait() do
+                for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
+                    if v:IsA("Tool") then
+                        if v:FindFirstChild("RemoteFunctionShoot") then 
+                            SelectWeaponGun = v.Name
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+    
+    game:GetService("Players").LocalPlayer.Idled:connect(function()
+        game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+        wait(1)
+        game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
+    end)
+
+    function CheckColorRipIndra()
+        mmb = {}
+        for r, v in next, game:GetService("Workspace").Map["Boat Castle"].Summoner.Circle:GetChildren() do
+            if v:IsA("Part") and v:FindFirstChild("Part") and v.Part.BrickColor.Name == "Dark stone grey" then
+                mmb[v.BrickColor.Name] = v
+            end
+        end
+        return mmb
+    end
+    function ActivateColor(cw)
+        haki = {["Hot pink"] = "Winter Sky", ["Really red"] ="Pure Red", ["Oyster"] = "Snow White"}
+        runnay = haki[cw]
+        if runnay then
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("activateColor", runnay)
+        end
+    end
+    function AutoActiveColorRip_Indra()
+        for r, v in pairs(CheckColorRipIndra()) do
+            ActivateColor(r)
+            topos(v.CFrame)
+            firetouchinterest(v.TouchInterest)
+        end
+    end
+
+_G.TargTrial = nil
+function targettrial()
+    if _G.TargTrial ~= nil then return end
+    local a = nil
+    local b = 450
+    for i,v in pairs(game.Players:GetChildren()) do
+        c = (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
+        if c <= b and v ~= game.Players.LocalPlayer then
+            b = c 
+            a = v
+        end
+    end
+    if a == nil then return end
+    if _G.TargTrial ~= nil then return end
+    _G.TargTrial = a
+end
+    
+
+function CheckPirateBoat()
+    local cocailon = {"PirateBasic", "PirateBrigade"}
+    for r, v in next, game:GetService("Workspace").Enemies:GetChildren() do
+        if table.find(cocailon, v.Name) and v:FindFirstChild("Health") and v.Health.Value > 0 then
+            return v
+        end
+    end
+end
+
+function StoreFruit()
+    for i,v in pairs(thelocal.Backpack:GetChildren()) do
+        if v:IsA("Tool") and string.find(v.Name, "Fruit") then
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v:GetAttribute("OriginalName"),v)
+        end
+    end
+end
+
+if getgenv().NoDieEffect then
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
+        game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
+    end
+    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
+        game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
+    end
+end
+
+	--Hard fast
+
+	local plr = game.Players.LocalPlayer
+	local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
+	local CbFw2 = CbFw[2]
+
+	function GetCurrentBlade() 
+		local p13 = CbFw2.activeController
+		local ret = p13.blades[1]
+		if not ret then return end
+		while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
+		return ret
+	end
+
+	function AttackNoCD()
+        if not Auto_Farm_Bounty and not Auto_Farm_Fruit or Mix_Farm then
+            if not Auto_Raid then
+                local AC = CbFw2.activeController
+                for i = 1, 1 do 
+                    local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
+                        plr.Character,
+                        {plr.Character.HumanoidRootPart},
+                        60
+                    )
+                    local cac = {}
+                    local hash = {}
+                    for k, v in pairs(bladehit) do
+                        if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
+                            table.insert(cac, v.Parent.HumanoidRootPart)
+                            hash[v.Parent] = true
+                        end
+                    end
+                    bladehit = cac
+                    if #bladehit > 0 then
+                        local u8 = debug.getupvalue(AC.attack, 5)
+                        local u9 = debug.getupvalue(AC.attack, 6)
+                        local u7 = debug.getupvalue(AC.attack, 4)
+                        local u10 = debug.getupvalue(AC.attack, 7)
+                        local u12 = (u8 * 798405 + u7 * 727595) % u9
+                        local u13 = u7 * 798405
+                        (function()
+                            u12 = (u12 * u9 + u13) % 1099511627776
+                            u8 = math.floor(u12 / u9)
+                            u7 = u12 - u8 * u9
+                        end)()
+                        u10 = u10 + 1
+                        debug.setupvalue(AC.attack, 5, u8)
+                        debug.setupvalue(AC.attack, 6, u9)
+                        debug.setupvalue(AC.attack, 4, u7)
+                        debug.setupvalue(AC.attack, 7, u10)
+                        pcall(function()
+                            if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
+                                AC.animator.anims.basic[1]:Play(0.01,0.01,0.01)
+                                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
+                                game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
+                                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+                            end
+                        end)
+                    end
+                end
+            end
+        end
+	end
+
+function getAllBladeHitsPlayers(Sizes)
+	local Hits = {}
+	local Client = game.Players.LocalPlayer
+	local Characters = game:GetService("Workspace").Characters:GetChildren()
+	for i=1,#Characters do local v = Characters[i]
+		local Human = v:FindFirstChildOfClass("Humanoid")
+		if v.Name ~= game.Players.LocalPlayer.Name and Human and Human.RootPart and Human.Health > 0 and Client:DistanceFromCharacter(Human.RootPart.Position) < Sizes+5 then
+			table.insert(Hits,Human.RootPart)
+		end
+	end
+	return Hits
+end
+
 -- Open & Close Ui : skid Night Hub
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -764,253 +943,18 @@ Fluent:Notify({
 })
 
 local Tabs = {
-    S = Window:AddTab({ Title = "Settings", Icon = "settings" })
     G = Window:AddTab({ Title = "Main", Icon = "home" }),
     O = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
-    IQ = Window:AddTab({ Title = "Item & Quest", Icon = "swords" }),
-    RE = Window:AddTab({ Title = "Reduce", Icon = "bone" }),
-    LC = Window:AddTab({ Title = "Local Player", Icon = "user" }),
     TE = Window:AddTab({ Title = "Tween Island", Icon = "crown" }),
+    RE = Window:AddTab({ Title = "Reduce", Icon = "bone" }),
+    IQ = Window:AddTab({ Title = "Items", Icon = "swords" }),
+    LC = Window:AddTab({ Title = "Local Player", Icon = "user" }),
     ST = Window:AddTab({ Title = "Status", Icon = "bar-chart-4" }),
     MI = Window:AddTab({ Title = "Misc", Icon = "apple" }),
-    UR = Window:AddTab({ Title = "Race v4", Icon = "person-standing" }),
+    UR = Window:AddTab({ Title = "Race", Icon = "person-standing" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "waves" }),
+    S = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
-
--- Settings Tab :
-
-Tabs.S:AddParagraph({
-        Title = "",
-        Content  = "Setting Fram"
-    })
-
-local FastAttack = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = true })
-
-FastAttack:OnChanged(function(Value)
-    _G.FastAttackOld = Value
-end)
-
-Options.FastAttack:SetValue(true)
-
-local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
-CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
-v = debug.getupvalues(CombatFrameworkR)[2]
-spawn(function()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        if _G.FastAttackOld then
-            if typeof(v) == "table" then
-                pcall(function()
-                    CameraShaker:Stop()
-                    v.activeController.timeToNextAttack = (math.huge^math.huge^math.huge)
-                    v.activeController.timeToNextAttack = 0
-                    v.activeController.hitboxMagnitude = 60
-                    v.activeController.active = false
-                    v.activeController.timeToNextBlock = 0
-                    v.activeController.focusStart = 1655503339.0980349
-                    v.activeController.increment = 1
-                    v.activeController.blocking = false
-                    v.activeController.attacking = false
-                    v.activeController.humanoid.AutoRotate = true
-                end)
-            end
-        end
-    end)
-end)
-
-spawn(function()
-    game:GetService("RunService").RenderStepped:Connect(function()
-        if _G.FastAttackOld == true then
-            game.Players.LocalPlayer.Character.Stun.Value = 0
-            game.Players.LocalPlayer.Character.Busy.Value = false        
-        end
-    end)
-end)
-
-local FastDelay = Tabs.S:AddDropdown("FastDelay", {
-    Title = "Dropdown",
-    Values = {"0", "0.1", "0.15", "0.155", "0.16", "0.165", "0.17", "0.175", "0.18", "0.185"},
-    Multi = false,
-    Default = 1,
-})
-
-FastDelay:SetValue("0.15")
-
-FastDelay:OnChanged(function(Value)
-    _G.FastAttackDelay = Value
-end)
-
-spawn(function()
-    while wait(.1) do
-        if _G.FastAttackDelay then
-            pcall(function()
-                if _G.FastAttackDelay == "0" then
-                    _G.FastAttackDelay = 0
-                elseif _G.FastAttackDelay == "0.1" then
-                    _G.FastAttackDelay = 0.1
-                elseif _G.FastAttackDelay == "0.15" then
-                    _G.FastAttackDelay = 0.15
-                elseif _G.FastAttackDelay == "0.155" then
-                    _G.FastAttackDelay = 0.155
-                elseif _G.FastAttackDelay == "0.16" then
-                    _G.FastAttackDelay = 0.16
-                elseif _G.FastAttackDelay == "0.165" then
-                    _G.FastAttackDelay = 0.165
-                elseif _G.FastAttackDelay == "0.17" then
-                    _G.FastAttackDelay = 0.17
-                elseif _G.FastAttackDelay == "0.175" then
-                    _G.FastAttackDelay = 0.175
-                elseif _G.FastAttackDelay == "0.18" then
-                    _G.FastAttackDelay = 0.18
-                elseif _G.FastAttackDelay == "0.185" then
-                    _G.FastAttackDelay = 0.185
-                end
-            end)
-        end
-    end
-end)
-
-function GetBladeHit()
-    local CombatFrameworkLib = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
-    local CmrFwLib = CombatFrameworkLib[2]
-    local p13 = CmrFwLib.activeController
-    local weapon = p13.blades[1]
-    if not weapon then 
-        return weapon
-    end
-    while weapon.Parent ~= game.Players.LocalPlayer.Character do
-        weapon = weapon.Parent 
-    end
-    return weapon
-end
-function Damchetcuno()
-    local CombatFrameworkLib = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
-    local CmrFwLib = CombatFrameworkLib[2]
-    local plr = game.Players.LocalPlayer
-    for i = 1, 1 do
-        local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(plr.Character,{plr.Character.HumanoidRootPart},60)
-        local cac = {}
-        local hash = {}
-        for k, v in pairs(bladehit) do
-            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                table.insert(cac, v.Parent.HumanoidRootPart)
-                hash[v.Parent] = true
-            end
-        end
-        bladehit = cac
-        if #bladehit > 0 then
-            pcall(function()
-                CmrFwLib.activeController.timeToNextAttack = 1
-                CmrFwLib.activeController.attacking = false
-                CmrFwLib.activeController.blocking = false
-                CmrFwLib.activeController.timeToNextBlock = 0
-                CmrFwLib.activeController.increment = 3
-                CmrFwLib.activeController.hitboxMagnitude = 60
-                CmrFwLib.activeController.focusStart = 0
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetBladeHit()))
-                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-            end)
-        end
-    end
-end
-
-spawn(function()
-    while wait(0.1) do
-        if _G.FastAttackOld then
-            pcall(function()
-                repeat task.wait(_G.FastAttackDelay)
-                    Damchetcuno()
-                until not _G.FastAttackOld
-            end)
-        end
-    end
-end)
-
-local BringMob = Tabs.S:AddToggle("BringMob", {Title = "Bring Mob", Default = true })
-
-BringMob:OnChanged(function(Value)
-    _G.BringMob = Value
-end)
-
-Options.BringMob:SetValue(true)
-
-spawn(function()
-    while wait() do
-        if _G.BringMob then
-            pcall(function()
-                Checknhiemvu()
-                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
-                    if _G.LevelFarm and BringMob then
-                        if v.Name == Mob and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                            v.HumanoidRootPart.CFrame = PosMon
-                            v.Humanoid:ChangeState(14)
-                            v.HumanoidRootPart.CanCollide = false
-                            v.Head.CanCollide = false
-                            if v.Humanoid:FindFirstChild("Animator") then
-                                v.Humanoid.Animator:Destroy()
-                            end
-                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                        end
-                    end
-                    if _G.AutoKatakuri and BringKatakuriMob then
-                        if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                            v.HumanoidRootPart.CFrame = PosMobCake
-                            v.Humanoid:ChangeState(14)
-                            v.HumanoidRootPart.CanCollide = false
-                            v.Head.CanCollide = false
-                            if v.Humanoid:FindFirstChild("Animator") then
-                                v.Humanoid.Animator:Destroy()
-                            end
-                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                        end
-                    end
-                    if _G.AutoBone and StartCheckBone then
-                        if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
-                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
-                            v.HumanoidRootPart.CFrame = PosMobBone
-                            v.Humanoid:ChangeState(14)
-                            v.HumanoidRootPart.CanCollide = false
-                            v.Head.CanCollide = false
-                            if v.Humanoid:FindFirstChild("Animator") then
-                                v.Humanoid.Animator:Destroy()
-                            end
-                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
-                        end
-                    end
-                end
-            end)
-        end
-    end
-end)
-
-local AutoBuso = Tabs.S:AddToggle("AutoBuso", {Title = "Auto Buso", Default = true })
-
-AutoBuso:OnChanged(function(Value)
-    _G.TurnBuso = Value
-end)
-
-Options.AutoBuso:SetValue(true)
-
-spawn(function()
-    while wait() do
-        pcall(function()
-            if _G.TurnBuso then
-                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
-                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
-                end
-            end
-        end)
-    end
-end)
-
-local BypassTeleport = Tabs.S:AddToggle("BypassTeleport", {Title = "Bypass Teleport", Default = true })
-
-BypassTeleport:OnChanged(function(Value)
-    BypassTP = Value
-end)
-
-Options.BypassTeleport:SetValue(true)
 
 -- General Tab :
 
@@ -1736,3 +1680,238 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardRewa
         end
     })
                 
+-- Settings Tab :
+
+Tabs.S:AddParagraph({
+        Title = "",
+        Content  = "Setting Fram"
+    })
+
+local FastAttack = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = true })
+
+FastAttack:OnChanged(function(Value)
+    _G.FastAttackOld = Value
+end)
+
+Options.FastAttack:SetValue(true)
+
+local CameraShaker = require(game.ReplicatedStorage.Util.CameraShaker)
+CombatFrameworkR = require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework)
+v = debug.getupvalues(CombatFrameworkR)[2]
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if _G.FastAttackOld then
+            if typeof(v) == "table" then
+                pcall(function()
+                    CameraShaker:Stop()
+                    v.activeController.timeToNextAttack = (math.huge^math.huge^math.huge)
+                    v.activeController.timeToNextAttack = 0
+                    v.activeController.hitboxMagnitude = 60
+                    v.activeController.active = false
+                    v.activeController.timeToNextBlock = 0
+                    v.activeController.focusStart = 1655503339.0980349
+                    v.activeController.increment = 1
+                    v.activeController.blocking = false
+                    v.activeController.attacking = false
+                    v.activeController.humanoid.AutoRotate = true
+                end)
+            end
+        end
+    end)
+end)
+
+spawn(function()
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if _G.FastAttackOld == true then
+            game.Players.LocalPlayer.Character.Stun.Value = 0
+            game.Players.LocalPlayer.Character.Busy.Value = false        
+        end
+    end)
+end)
+
+local FastDelay = Tabs.S:AddDropdown("FastDelay", {
+    Title = "Dropdown",
+    Values = {"0", "0.1", "0.15", "0.155", "0.16", "0.165", "0.17", "0.175", "0.18", "0.185"},
+    Multi = false,
+    Default = 1,
+})
+
+FastDelay:SetValue("0.175")
+
+FastDelay:OnChanged(function(Value)
+    _G.FastAttackDelay = Value
+end)
+
+spawn(function()
+    while wait(.1) do
+        if _G.FastAttackDelay then
+            pcall(function()
+                if _G.FastAttackDelay == "0" then
+                    _G.FastAttackDelay = 0
+                elseif _G.FastAttackDelay == "0.1" then
+                    _G.FastAttackDelay = 0.1
+                elseif _G.FastAttackDelay == "0.15" then
+                    _G.FastAttackDelay = 0.15
+                elseif _G.FastAttackDelay == "0.155" then
+                    _G.FastAttackDelay = 0.155
+                elseif _G.FastAttackDelay == "0.16" then
+                    _G.FastAttackDelay = 0.16
+                elseif _G.FastAttackDelay == "0.165" then
+                    _G.FastAttackDelay = 0.165
+                elseif _G.FastAttackDelay == "0.17" then
+                    _G.FastAttackDelay = 0.17
+                elseif _G.FastAttackDelay == "0.175" then
+                    _G.FastAttackDelay = 0.175
+                elseif _G.FastAttackDelay == "0.18" then
+                    _G.FastAttackDelay = 0.18
+                elseif _G.FastAttackDelay == "0.185" then
+                    _G.FastAttackDelay = 0.185
+                end
+            end)
+        end
+    end
+end)
+
+function GetBladeHit()
+    local CombatFrameworkLib = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local p13 = CmrFwLib.activeController
+    local weapon = p13.blades[1]
+    if not weapon then 
+        return weapon
+    end
+    while weapon.Parent ~= game.Players.LocalPlayer.Character do
+        weapon = weapon.Parent 
+    end
+    return weapon
+end
+function Damchetcuno()
+    local CombatFrameworkLib = debug.getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))
+    local CmrFwLib = CombatFrameworkLib[2]
+    local plr = game.Players.LocalPlayer
+    for i = 1, 1 do
+        local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(plr.Character,{plr.Character.HumanoidRootPart},60)
+        local cac = {}
+        local hash = {}
+        for k, v in pairs(bladehit) do
+            if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
+                table.insert(cac, v.Parent.HumanoidRootPart)
+                hash[v.Parent] = true
+            end
+        end
+        bladehit = cac
+        if #bladehit > 0 then
+            pcall(function()
+                CmrFwLib.activeController.timeToNextAttack = 1
+                CmrFwLib.activeController.attacking = false
+                CmrFwLib.activeController.blocking = false
+                CmrFwLib.activeController.timeToNextBlock = 0
+                CmrFwLib.activeController.increment = 3
+                CmrFwLib.activeController.hitboxMagnitude = 60
+                CmrFwLib.activeController.focusStart = 0
+                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetBladeHit()))
+                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
+            end)
+        end
+    end
+end
+
+spawn(function()
+    while wait(0.1) do
+        if _G.FastAttackOld then
+            pcall(function()
+                repeat task.wait(_G.FastAttackDelay)
+                    Damchetcuno()
+                until not _G.FastAttackOld
+            end)
+        end
+    end
+end)
+
+local BringMob = Tabs.S:AddToggle("BringMob", {Title = "Bring Mob", Default = true })
+
+BringMob:OnChanged(function(Value)
+    _G.BringMob = Value
+end)
+
+Options.BringMob:SetValue(true)
+
+spawn(function()
+    while wait() do
+        if _G.BringMob then
+            pcall(function()
+                Checknhiemvu()
+                for i, v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+                    if _G.LevelFarm and BringMob then
+                        if v.Name == Mob and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                            v.HumanoidRootPart.CFrame = PosMon
+                            v.Humanoid:ChangeState(14)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            if v.Humanoid:FindFirstChild("Animator") then
+                                v.Humanoid.Animator:Destroy()
+                            end
+                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                        end
+                    end
+                    if _G.AutoKatakuri and BringKatakuriMob then
+                        if (v.Name == "Cookie Crafter" or v.Name == "Cake Guard" or v.Name == "Baking Staff" or v.Name == "Head Baker") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                            v.HumanoidRootPart.CFrame = PosMobCake
+                            v.Humanoid:ChangeState(14)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            if v.Humanoid:FindFirstChild("Animator") then
+                                v.Humanoid.Animator:Destroy()
+                            end
+                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                        end
+                    end
+                    if _G.AutoBone and StartCheckBone then
+                        if (v.Name == "Reborn Skeleton" or v.Name == "Living Zombie" or v.Name == "Demonic Soul" or v.Name == "Posessed Mummy") and v:FindFirstChild("HumanoidRootPart") and v.Humanoid.Health > 0 and v.Parent and (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 350 then
+                            v.HumanoidRootPart.Size = Vector3.new(50, 50, 50)
+                            v.HumanoidRootPart.CFrame = PosMobBone
+                            v.Humanoid:ChangeState(14)
+                            v.HumanoidRootPart.CanCollide = false
+                            v.Head.CanCollide = false
+                            if v.Humanoid:FindFirstChild("Animator") then
+                                v.Humanoid.Animator:Destroy()
+                            end
+                            sethiddenproperty(game:GetService("Players").LocalPlayer, "SimulationRadius", math.huge)
+                        end
+                    end
+                end
+            end)
+        end
+    end
+end)
+
+local AutoBuso = Tabs.S:AddToggle("AutoBuso", {Title = "Auto Buso", Default = true })
+
+AutoBuso:OnChanged(function(Value)
+    _G.TurnBuso = Value
+end)
+
+Options.AutoBuso:SetValue(true)
+
+spawn(function()
+    while wait() do
+        pcall(function()
+            if _G.TurnBuso then
+                if not game.Players.LocalPlayer.Character:FindFirstChild("HasBuso") then
+                    game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Buso")
+                end
+            end
+        end)
+    end
+end)
+
+local BypassTeleport = Tabs.S:AddToggle("BypassTeleport", {Title = "Bypass Teleport", Default = true })
+
+BypassTeleport:OnChanged(function(Value)
+    BypassTP = Value
+end)
+
+Options.BypassTeleport:SetValue(true)
+
