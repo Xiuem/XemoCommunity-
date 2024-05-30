@@ -710,7 +710,6 @@ spawn(function()
     end)
   end)
 
-
 -- Open & Close Ui : skid Night Hub
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -767,13 +766,13 @@ Fluent:Notify({
 local Tabs = {
     G = Window:AddTab({ Title = "Main", Icon = "home" }),
     O = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
+    IQ = Window:AddTab({ Title = "Items", Icon = "swords" }),
     TE = Window:AddTab({ Title = "Tween Island", Icon = "crown" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "bone" }),
-    IQ = Window:AddTab({ Title = "Items", Icon = "swords" }),
     LC = Window:AddTab({ Title = "Local Player", Icon = "user" }),
     ST = Window:AddTab({ Title = "Status", Icon = "bar-chart-4" }),
-    MI = Window:AddTab({ Title = "Misc", Icon = "apple" }),
-    UR = Window:AddTab({ Title = "Race", Icon = "person-standing" }),
+    ST = Window:AddTab({ Title = "Misc", Icon = "apple" }),
+    UR = Window:AddTab({ Title = "Race v4", Icon = "person-standing" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "waves" }),
     S = Window:AddTab({ Title = "Settings", Icon = "settings" })
 }
@@ -1736,4 +1735,4 @@ BypassTeleport:OnChanged(function(Value)
 end)
 
 Options.BypassTeleport:SetValue(true)
-
+end
