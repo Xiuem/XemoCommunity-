@@ -764,17 +764,18 @@ Fluent:Notify({
 })
 
 local Tabs = {
-    G = Window:AddTab({ Title = "Main", Icon = "home" }),
-    O = Window:AddTab({ Title = "Shop", Icon = "shopping-cart" }),
-    IQ = Window:AddTab({ Title = "Items", Icon = "swords" }),
+    G = Window:AddTab({ Title = "Main", Icon = "" }),
+    O = Window:AddTab({ Title = "Shop", Icon = "" }),
+    IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     TE = Window:AddTab({ Title = "Tween Island", Icon = "crown" }),
-    RE = Window:AddTab({ Title = "Reduce", Icon = "bone" }),
-    LC = Window:AddTab({ Title = "Local Player", Icon = "user" }),
-    ST = Window:AddTab({ Title = "Status", Icon = "bar-chart-4" }),
-    ST = Window:AddTab({ Title = "Misc", Icon = "apple" }),
-    UR = Window:AddTab({ Title = "Race v4", Icon = "person-standing" }),
-    SE = Window:AddTab({ Title = "Sea Event", Icon = "waves" }),
-    S = Window:AddTab({ Title = "Settings", Icon = "settings" })
+    RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
+    LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
+    TE = Window:AddTab({ Title = "Webhook", Icon = "" }),
+    ST = Window:AddTab({ Title = "Status", Icon = "" }),
+    ST = Window:AddTab({ Title = "Misc", Icon = "" }),
+    UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
+    SE = Window:AddTab({ Title = "Sea Event", Icon = "" }),
+    S = Window:AddTab({ Title = "Settings", Icon = "" })
 }
 
 -- General Tab :
