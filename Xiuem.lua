@@ -898,6 +898,22 @@ spawn(function()
         end)
     end
 end)
+    
+Tabs.G:AddButton({
+        Title = "Reset Character",
+        Description = "",
+        Callback = function()            
+game.Players.LocalPlayer.Character.Head:Destroy()
+        end
+    })
+    
+    Tabs.G:AddButton({
+        Title = "Remove Fog",
+        Description = "",
+        Callback = function()
+        game.Lighting.Sky:Destroy()
+        end
+    })
 
 Tabs.G:AddParagraph({
         Title = "",
