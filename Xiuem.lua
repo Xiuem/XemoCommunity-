@@ -1622,6 +1622,17 @@ local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Notify", Default =
         end
         end)
     
+    local ToggleWhite = Tabs.RE:AddToggle("MyToggle", {Title = "White Screen", Default = false })
+    
+    ToggleWhite:OnChanged(function(Value)
+       _G.WhiteScreen = Value
+       if _G.WhiteScreen == true then
+        game:GetService("RunService"):Set3dRenderingEnabled(false)
+    elseif _G.WhiteScreen == false then
+        game:GetService("RunService"):Set3dRenderingEnabled(true)
+            end
+        end)
+    
                 
 -- Settings Tab :
 
