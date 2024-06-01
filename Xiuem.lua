@@ -766,13 +766,13 @@ Fluent:Notify({
 local Tabs = {
     G = Window:AddTab({ Title = "Main", Icon = "" }),
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
-    IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     TE = Window:AddTab({ Title = "Tween Island", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
     LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     TE = Window:AddTab({ Title = "Webhook", Icon = "" }),
     ST = Window:AddTab({ Title = "Status", Icon = "" }),
     ST = Window:AddTab({ Title = "Misc", Icon = "" }),
+    IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     CO = Window:AddTab({ Title = "Combat", Icon = "" }),
     UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "" }),
@@ -1203,7 +1203,7 @@ spawn(function()
     end
 end)
 
-local AutoElite = Tabs.G:AddToggle("AutoElite", {Title = "Auto Elite[Error]", Default = false })
+local AutoElite = Tabs.G:AddToggle("AutoElite", {Title = "Auto Elite", Default = false })
 
 AutoElite:OnChanged(function(Value)
     _G.AutoElite = Value
@@ -1259,7 +1259,7 @@ spawn(function()
     end
 end)
 
-local AutoPirates = Tabs.G:AddToggle("AutoPirates", {Title = "Auto Pirates", Default = false })
+local AutoPirates = Tabs.G:AddToggle("AutoPirates", {Title = "Auto Pirates[Error]", Default = false })
 
 AutoPirates:OnChanged(function(Value)
     _G.AutoPirates = Value
@@ -1513,6 +1513,17 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardRewa
         game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardReward","Refund","2")
         end
     })
+    
+-- Tween Island
+
+local stopfly = Tabs.TE:AddButton({
+                Title = "Stop Tween",
+                Description = "",
+                Callback = function()
+                    toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+                end
+            })
+        end
                 
 -- Settings Tab :
 
