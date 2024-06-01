@@ -766,10 +766,10 @@ Fluent:Notify({
 local Tabs = {
     G = Window:AddTab({ Title = "Main", Icon = "" }),
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
-    TE = Window:AddTab({ Title = "Tween Island", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
+    TE = Window:AddTab({ Title = "Tween Island", Icon = "" }),
     LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
-    TE = Window:AddTab({ Title = "Webhook", Icon = "" }),
+    WE = Window:AddTab({ Title = "Webhook", Icon = "" }),
     ST = Window:AddTab({ Title = "Status", Icon = "" }),
     ST = Window:AddTab({ Title = "Misc", Icon = "" }),
     IQ = Window:AddTab({ Title = "Items", Icon = "" }),
@@ -1514,15 +1514,63 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardRewa
         end
     })
     
--- Tween Island
+-- Reduce
 
-Tabs.TE:AddButton({
-        Title = "Stop Tween",
+Tabs.RE:AddButton({
+        Title = "Unlock Fps",
         Description = "",
-        Callback = function()            
-toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
+        Callback = function()
+            setfpscap(80)
         end
     })
+    Tabs.RE:AddButton({
+        Title = "Remove Text",
+        Description = "",
+        Callback = function()
+            FPSBooster()
+        end
+    })
+    function FPSBooster()
+        local decalsyeeted = true
+        local g = game
+        local w = g.Workspace
+        local l = g.Lighting
+        local t = w.Terrain
+        sethiddenproperty(l,"Technology",2)
+        sethiddenproperty(t,"Decoration",false)
+        t.WaterWaveSize = 0
+        t.WaterWaveSpeed = 0
+        t.WaterReflectance = 0
+        t.WaterTransparency = 0
+        l.GlobalShadows = false
+        l.FogEnd = 9e9
+        l.Brightness = 0
+        settings().Rendering.QualityLevel = "Level01"
+        for i, v in pairs(g:GetDescendants()) do
+            if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+            elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
+                v.Transparency = 1
+            elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
+                v.Lifetime = NumberRange.new(0)
+            elseif v:IsA("Explosion") then
+                v.BlastPressure = 1
+                v.BlastRadius = 1
+            elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
+                v.Enabled = false
+            elseif v:IsA("MeshPart") then
+                v.Material = "Plastic"
+                v.Reflectance = 0
+                v.TextureID = 10385902758728957
+            end
+        end
+        for i, e in pairs(l:GetChildren()) do
+            if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
+                e.Enabled = false
+            end
+        end
+    end
     
                 
 -- Settings Tab :
