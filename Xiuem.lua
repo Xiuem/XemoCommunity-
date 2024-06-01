@@ -1524,7 +1524,7 @@ Tabs.RE:AddButton({
         end
     })
     Tabs.RE:AddButton({
-        Title = "Remove Text",
+        Title = "Reduced Graphics",
         Description = "",
         Callback = function()
             FPSBooster()
@@ -1571,6 +1571,56 @@ Tabs.RE:AddButton({
             end
         end
     end
+    
+    local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Effect ", Default = true })
+
+    Toggle:OnChanged(function(Value)
+        _G.Remove_Effect = Value		
+    end)
+    
+    spawn(function()
+    game:GetService('RunService').Stepped:Connect(function()
+        if _G.Remove_Effect then
+            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
+                if v.Name == "Death" then
+                    v:Destroy() 
+                end
+            end
+        end
+    end)
+    end)
+
+local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Notify", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        RemoveNotify = Value
+    end)
+    
+    spawn(function()
+        while wait() do
+            if RemoveNotify then
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
+            else
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
+            end
+        end
+    end)
+    
+    local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Text", Default = true })
+
+    Toggle:OnChanged(function(Value)
+        Removetext = Value
+    end)
+    
+    spawn(function()
+        while wait() do
+            if Removetext then
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+            else
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
+            end
+        end
+        end)
     
                 
 -- Settings Tab :
