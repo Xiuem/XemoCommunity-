@@ -1523,7 +1523,6 @@ local stopfly = Tabs.TE:AddButton({
                     toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
                 end
             })
-        end
                 
 -- Settings Tab :
 
