@@ -1673,92 +1673,8 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
         Title = "",
         Content  = "Tween Island"
     })
-           
-if World1 then
-    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"WindMill",
-                      "Marine",
-                      "Middle Town",
-                      "Jungle",
-                      "Pirate Village",
-                      "Desert",
-                      "Snow Island",
-                      "MarineFord",
-                      "Colosseum",
-                      "Sky Island 1",
-                      "Sky Island 2",
-                      "Sky Island 3",
-                      "Prison",
-                      "Magma Village",
-                      "Under Water Island",
-                      "Fountain City",
-                      "Shank Room",
-                      "Mob Island"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    if World2 then
-    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"The Cafe",
-                                "Frist Spot",
-                                "Dark Area",
-                                "Flamingo Mansion",
-                                "Flamingo Room",
-                                "Green Zone",
-                                "Factory",
-                                "Colossuim",
-                                "Zombie Island",
-                                "Two Snow Mountain",
-                                "Punk Hazard",
-                                "Cursed Ship",
-                                "Ice Castle",
-                                "Forgotten Island",
-                                "Ussop Island",
-                                "Mini Sky Island"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    if World3 then
-    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"Mansion",
-                                          "Port Town",
-                                          "Great Tree",
-                                          "Castle On The Sea",
-                                          "MiniSky", 
-                                          "Hydra Island",
-                                          "Floating Turtle",
-                                          "Haunted Castle",
-                                          "Ice Cream Island",
-                                          "Peanut Island",
-                                          "Cake Island",
-                                          "Cocoa Island",
-                                          "Candy Island",
-"Tiki Outpost"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    local Toggle = Tabs.TE:AddToggle("MyToggle", {Title = "Tween", Default = false })
+    
+        local Toggle = Tabs.TE:AddToggle("MyToggle", {Title = "Tween", Default = false })
 
     Toggle:OnChanged(function(Value)
         _G.TeleportIsland = Value
@@ -1865,7 +1781,91 @@ if World1 then
 		end
 		StopTween(_G.TeleportIsland)
     end)
-  
+           
+if World1 then
+    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
+        Title = "Select Island",
+        Values = {"WindMill",
+                      "Marine",
+                      "Middle Town",
+                      "Jungle",
+                      "Pirate Village",
+                      "Desert",
+                      "Snow Island",
+                      "MarineFord",
+                      "Colosseum",
+                      "Sky Island 1",
+                      "Sky Island 2",
+                      "Sky Island 3",
+                      "Prison",
+                      "Magma Village",
+                      "Under Water Island",
+                      "Fountain City",
+                      "Shank Room",
+                      "Mob Island"},
+        Multi = false,
+        Default = 1,
+    })
+
+    Dropdown:SetValue("0.15")
+    Dropdown:OnChanged(function(Value)
+        _G.SelectIsland = Value
+    end)
+    end
+    if World2 then
+    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
+        Title = "Select Island",
+        Values = {"The Cafe",
+                                "Frist Spot",
+                                "Dark Area",
+                                "Flamingo Mansion",
+                                "Flamingo Room",
+                                "Green Zone",
+                                "Factory",
+                                "Colossuim",
+                                "Zombie Island",
+                                "Two Snow Mountain",
+                                "Punk Hazard",
+                                "Cursed Ship",
+                                "Ice Castle",
+                                "Forgotten Island",
+                                "Ussop Island",
+                                "Mini Sky Island"},
+        Multi = false,
+        Default = 1,
+    })
+
+    Dropdown:SetValue("0.15")
+    Dropdown:OnChanged(function(Value)
+        _G.SelectIsland = Value
+    end)
+    end
+    if World3 then
+    local Dropdown = Tabs.TE:AddDropdown("Dropdown", {
+        Title = "Select Island",
+        Values = {"Mansion",
+                                          "Port Town",
+                                          "Great Tree",
+                                          "Castle On The Sea",
+                                          "MiniSky", 
+                                          "Hydra Island",
+                                          "Floating Turtle",
+                                          "Haunted Castle",
+                                          "Ice Cream Island",
+                                          "Peanut Island",
+                                          "Cake Island",
+                                          "Cocoa Island",
+                                          "Candy Island",
+"Tiki Outpost"},
+        Multi = false,
+        Default = 1,
+    })
+
+    Dropdown:SetValue("0.15")
+    Dropdown:OnChanged(function(Value)
+        _G.SelectIsland = Value
+    end)
+    end
   
 -- Settings Tab :
 
