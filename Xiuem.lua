@@ -1669,8 +1669,19 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
         end
     })
     
-    
-                
+    Tabs.TE:AddParagraph({
+        Title = "",
+        Content  = "Tween Island"
+    })
+           
+Tabs.TE:AddButton({
+        Title = "Stop Tween",
+        Description = "",
+        Callback = function()
+          CancelTween()
+        end
+    })   
+  
 -- Settings Tab :
 
 Tabs.S:AddParagraph({
