@@ -1516,6 +1516,11 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardRewa
     
 -- Reduce
 
+Tabs.RE:AddParagraph({
+        Title = "",
+        Content = "Reduce Lag For The game"
+    })
+
 Tabs.RE:AddButton({
         Title = "Unlock Fps",
         Description = "",
