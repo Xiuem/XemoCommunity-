@@ -1638,6 +1638,38 @@ local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Notify", Default =
             end
         end)
     
+-- Tween Island
+
+Tabs.TE:AddParagraph({
+        Title = "",
+        Content  = "Teleport World"
+    })
+    
+    Tabs.TE:AddButton({
+        Title = "Old World",
+        Description = "",
+        Callback = function()            
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelMain")
+        end
+    })
+    
+    Tabs.TE:AddButton({
+        Title = "Second Sea",
+        Description = "",
+        Callback = function()            
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
+        end
+    })
+    
+    Tabs.TE:AddButton({
+        Title = "Third Sea",
+        Description = "",
+        Callback = function()            
+game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
+        end
+    })
+    
+    
                 
 -- Settings Tab :
 
