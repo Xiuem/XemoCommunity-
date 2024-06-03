@@ -743,8 +743,8 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 
 local Window = Fluent:CreateWindow({
-    Title = "Xemo Hub ",
-    SubTitle = "1.0",
+    Title = "Herom Hub ",
+    SubTitle = "by ITO",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -757,8 +757,8 @@ local Options = Fluent.Options
 do
 
 Fluent:Notify({
-    Title = "Xemo Hub",
-    Content = "Welcome Again To Script",
+    Title = "Herom Hub",
+    Content = "",
     SubContent = "@"..game.Players.LocalPlayer.Name.." wait Script load..", -- Optional
     Duration = 5 -- Set to nil to make the notification not disappear
 })
@@ -771,7 +771,7 @@ local Tabs = {
     LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     WE = Window:AddTab({ Title = "Webhook", Icon = "" }),
     ST = Window:AddTab({ Title = "Status", Icon = "" }),
-    ST = Window:AddTab({ Title = "Misc", Icon = "" }),
+    MI = Window:AddTab({ Title = "Misc", Icon = "" }),
     IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     CO = Window:AddTab({ Title = "Combat", Icon = "" }),
     UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
@@ -1645,91 +1645,6 @@ Tabs.TE:AddParagraph({
         Content  = "Travel"
     })
     
-        if World1 then
-    local Dropdown = Tabs.Lc:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"WindMill",
-                      "Marine",
-                      "Middle Town",
-                      "Jungle",
-                      "Pirate Village",
-                      "Desert",
-                      "Snow Island",
-                      "MarineFord",
-                      "Colosseum",
-                      "Sky Island 1",
-                      "Sky Island 2",
-                      "Sky Island 3",
-                      "Prison",
-                      "Magma Village",
-                      "Under Water Island",
-                      "Fountain City",
-                      "Shank Room",
-                      "Mob Island"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    if World2 then
-    local Dropdown = Tabs.Lc:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"The Cafe",
-                                "Frist Spot",
-                                "Dark Area",
-                                "Flamingo Mansion",
-                                "Flamingo Room",
-                                "Green Zone",
-                                "Factory",
-                                "Colossuim",
-                                "Zombie Island",
-                                "Two Snow Mountain",
-                                "Punk Hazard",
-                                "Cursed Ship",
-                                "Ice Castle",
-                                "Forgotten Island",
-                                "Ussop Island",
-                                "Mini Sky Island"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    if World3 then
-    local Dropdown = Tabs.Lc:AddDropdown("Dropdown", {
-        Title = "Select Island",
-        Values = {"Mansion",
-                                          "Port Town",
-                                          "Great Tree",
-                                          "Castle On The Sea",
-                                          "MiniSky", 
-                                          "Hydra Island",
-                                          "Floating Turtle",
-                                          "Haunted Castle",
-                                          "Ice Cream Island",
-                                          "Peanut Island",
-                                          "Cake Island",
-                                          "Cocoa Island",
-                                          "Candy Island",
-"Tiki Outpost"},
-        Multi = false,
-        Default = 1,
-    })
-
-    Dropdown:SetValue("0.15")
-    Dropdown:OnChanged(function(Value)
-        _G.SelectIsland = Value
-    end)
-    end
-    
     Tabs.TE:AddButton({
         Title = "Old World",
         Description = "",
@@ -1753,6 +1668,60 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressros
 game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
         end
     })
+    
+ --Status
+    
+    local Time = Tabs.ST:AddParagraph({
+        Title = "Time Zone",
+        Content = ""
+    })
+    
+    local function UpdateOS()
+        local date = os.date("*t")
+        local hour = (date.hour) % 24
+        local ampm = hour < 12 and "AM" or "PM"
+        local timezone = string.format("%02i:%02i:%02i %s", ((hour -1) % 12) + 1, date.min, date.sec, ampm)
+        local datetime = string.format("%02d/%02d/%04d", date.day, date.month, date.year)
+        local LocalizationService = game:GetService("LocalizationService")
+        local Players = game:GetService("Players")
+        local player = Players.LocalPlayer
+        local name = player.Name
+        local result, code = pcall(function()
+            return LocalizationService:GetCountryRegionForPlayerAsync(player)
+        end)
+        Time:SetDesc(datetime.." - "..timezone.." [ " .. code .. " ]")
+    end
+    spawn(function()
+        while true do
+            UpdateOS()
+            game:GetService("RunService").RenderStepped:Wait()
+        end
+    end)
+    
+    local Timekl = Tabs.ST:AddParagraph({
+        Title = "Time Sever",
+        Content = ""
+    })
+    
+    function UpdateTime()
+local GameTime = math.floor(workspace.DistributedGameTime+0.5)
+local Hour = math.floor(GameTime/(60^2))%24
+local Minute = math.floor(GameTime/(60^1))%60
+local Second = math.floor(GameTime/(60^0))%60
+Timekl:SetDesc("[Time Sever] : Hours : "..Hour.. "  Minutes : "..Minute.."  Seconds : "..Second)
+end
+
+spawn(function()
+ while task.wait() do
+ pcall(function()
+  UpdateTime()
+  end)
+ end
+ end)
+ 
+ function CheckRace()local a=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1")local b=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist","1")if game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed")then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V4"end;if a==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V3"end;if b==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V2"end;return game:GetService("Players").LocalPlayer.Data.Race.Value.." V1"end;Tabs.ST:AddParagraph({Title="Status Account :",Content="Name : "..game.Players.LocalPlayer.Name.." \n Level : "..game.Players.LocalPlayer.Data.Level.Value.." \n Race : "..CheckRace().." \n Beli : "..game.Players.LocalPlayer.Data.Beli.Value.." \n Fragments : "..game.Players.LocalPlayer.Data.Fragments.Value.." Bounty : "..tostring(game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value)..""})if TravelZou then function CheckKatakuri(a)if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"))==88 then a:SetDesc("Killed : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41)..' / 500')elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"))==87 then a:SetDesc("Killed : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40)..' / 500')elseif string.len(game:GetService("ReplicatedStorage").Remote
+   
+    
     
 -- Settings Tab :
 
