@@ -744,7 +744,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
     Title = "Herom Hub ",
-    SubTitle = "by ITO",
+    SubTitle = "1.0",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -758,7 +758,7 @@ do
 
 Fluent:Notify({
     Title = "Herom Hub",
-    Content = "",
+    Content = ".............",
     SubContent = "@"..game.Players.LocalPlayer.Name.." wait Script load..", -- Optional
     Duration = 5 -- Set to nil to make the notification not disappear
 })
@@ -767,10 +767,10 @@ local Tabs = {
     G = Window:AddTab({ Title = "Main", Icon = "" }),
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
-    TE = Window:AddTab({ Title = "Tween Island", Icon = "" }),
+    ST = Window:AddTab({ Title = "Status", Icon = "" }),
     LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     WE = Window:AddTab({ Title = "Webhook", Icon = "" }),
-    ST = Window:AddTab({ Title = "Status", Icon = "" }),
+    TE = Window:AddTab({ Title = "Travel", Icon = "" }),
     MI = Window:AddTab({ Title = "Misc", Icon = "" }),
     IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     CO = Window:AddTab({ Title = "Combat", Icon = "" }),
@@ -1638,40 +1638,9 @@ local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Notify", Default =
             end
         end)
     
--- Tween Island
+--Status
 
-Tabs.TE:AddParagraph({
-        Title = "",
-        Content  = "Travel"
-    })
-    
-    Tabs.TE:AddButton({
-        Title = "Old World",
-        Description = "",
-        Callback = function()            
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelMain")
-        end
-    })
-    
-    Tabs.TE:AddButton({
-        Title = "Second Sea",
-        Description = "",
-        Callback = function()            
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelDressrosa")
-        end
-    })
-    
-    Tabs.TE:AddButton({
-        Title = "Third Sea",
-        Description = "",
-        Callback = function()            
-game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("TravelZou")
-        end
-    })
-    
- --Status
-    
-    local Time = Tabs.ST:AddParagraph({
+local Time = Tabs.ST:AddParagraph({
         Title = "Time Zone",
         Content = ""
     })
@@ -1718,11 +1687,7 @@ spawn(function()
   end)
  end
  end)
- 
- function CheckRace()local a=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1")local b=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist","1")if game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed")then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V4"end;if a==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V3"end;if b==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V2"end;return game:GetService("Players").LocalPlayer.Data.Race.Value.." V1"end;Tabs.ST:AddParagraph({Title="Status Account :",Content="Name : "..game.Players.LocalPlayer.Name.." \n Level : "..game.Players.LocalPlayer.Data.Level.Value.." \n Race : "..CheckRace().." \n Beli : "..game.Players.LocalPlayer.Data.Beli.Value.." \n Fragments : "..game.Players.LocalPlayer.Data.Fragments.Value.." Bounty : "..tostring(game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value)..""})if TravelZou then function CheckKatakuri(a)if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"))==88 then a:SetDesc("Killed : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41)..' / 500')elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"))==87 then a:SetDesc("Killed : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40)..' / 500')elseif string.len(game:GetService("ReplicatedStorage").Remote
-   
-    
-    
+                
 -- Settings Tab :
 
 Tabs.S:AddParagraph({
