@@ -1687,6 +1687,8 @@ spawn(function()
   end)
  end
  end)
+ 
+ function CheckRace()local a=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Wenlocktoad","1")local b=game.ReplicatedStorage.Remotes.CommF_:InvokeServer("Alchemist","1")if game.Players.LocalPlayer.Character:FindFirstChild("RaceTransformed")then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V4"end;if a==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V3"end;if b==-2 then return game:GetService("Players").LocalPlayer.Data.Race.Value.." V2"end;return game:GetService("Players").LocalPlayer.Data.Race.Value.." V1"end;Tabs.ST:AddParagraph({Title="Players Status :",Content="Name : "..game.Players.LocalPlayer.Name.." \n Level : "..game.Players.LocalPlayer.Data.Level.Value.." \n Race : "..CheckRace().." \n Beli : "..game.Players.LocalPlayer.Data.Beli.Value.." \n Fragments : "..game.Players.LocalPlayer.Data.Fragments.Value.." Bounty : "..tostring(game:GetService("Players").LocalPlayer.leaderstats["Bounty/Honor"].Value)..""})
                 
 -- Settings Tab :
 
