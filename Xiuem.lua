@@ -1682,7 +1682,7 @@ local Time = Tabs.ST:AddParagraph({
         end
     end)
     
-        local MobKilled = Tabs.SY:AddParagraph({
+        local MobKilled = Tabs.ST:AddParagraph({
         Title = "Dough Boss Status",
         Content = ""
     })
