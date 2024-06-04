@@ -1677,13 +1677,13 @@ local Time = Tabs.ST:AddParagraph({
     spawn(function()
         while wait() do
             pcall(function()
-                BoneCheck:SetDesc("Your Bone : "..(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check")))
+                BoneCheck:SetDesc("Bone : "..(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check")))
             end)
         end
     end)
     
         local MobKilled = Tabs.ST:AddParagraph({
-        Title = "Dough Boss Status",
+        Title = "Dough King - Katakuri Status",
         Content = ""
     })
     
@@ -1942,6 +1942,30 @@ spawn(function()
                         end
                     end
                 end
+            end)
+        end
+    end
+end)
+
+    local Toggle = Tabs.S:AddToggle("MyToggle", {Title = "Auto Click", Default = false })
+
+    Toggle:OnChanged(function(Value)
+      UFFF = Value
+    end)
+      
+    local Toggle = Tabs.S:AddToggle("MyToggle", {Title = "Attack Aura", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        _G.FastAttack2 = Value
+    end)
+    
+    spawn(function()
+    while wait(.1) do
+        if _G.FastAttack2 then
+            pcall(function()
+                repeat task.wait(_G.FastAttackDelay)
+                    AttackNoCD()
+                until not _G.FastAttack2
             end)
         end
     end
