@@ -760,6 +760,19 @@ spawn(function()
         end
 	end
 
+function getAllBladeHitsPlayers(Sizes)
+	local Hits = {}
+	local Client = game.Players.LocalPlayer
+	local Characters = game:GetService("Workspace").Characters:GetChildren()
+	for i=1,#Characters do local v = Characters[i]
+		local Human = v:FindFirstChildOfClass("Humanoid")
+		if v.Name ~= game.Players.LocalPlayer.Name and Human and Human.RootPart and Human.Health > 0 and Client:DistanceFromCharacter(Human.RootPart.Position) < Sizes+5 then
+			table.insert(Hits,Human.RootPart)
+		end
+	end
+	return Hits
+end
+
 -- Open & Close Ui : skid Night Hub
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -2003,24 +2016,6 @@ end)
       UFFF = Value
     end)
       
-    local Toggle = Tabs.S:AddToggle("MyToggle", {Title = "Attack Aura", Default = false })
-
-    Toggle:OnChanged(function(Value)
-        _G.FastAttack2 = Value
-    end)
-    
-    spawn(function()
-    while wait(.1) do
-        if _G.FastAttack2 then
-            pcall(function()
-                repeat task.wait(_G.FastAttackDelay)
-                    AttackNoCD()
-                until not _G.FastAttack2
-            end)
-        end
-    end
-end)
-
 local AutoBuso = Tabs.S:AddToggle("AutoBuso", {Title = "Auto Buso", Default = true })
 
 AutoBuso:OnChanged(function(Value)
