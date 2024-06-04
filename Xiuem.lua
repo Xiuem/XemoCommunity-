@@ -1682,6 +1682,28 @@ local Time = Tabs.ST:AddParagraph({
         end
     end)
     
+        local MobKilled = Tabs.SY:AddParagraph({
+        Title = "Dough Boss Status",
+        Content = ""
+    })
+    
+    
+    spawn(function()
+        while wait() do
+            pcall(function()
+                if string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 88 then
+                    MobKilled:SetDesc("Defeat : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,41))
+                elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 87 then
+                    MobKilled:SetDesc("Defeat : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,40))
+                elseif string.len(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner")) == 86 then
+                    MobKilled:SetDesc("Defeat : "..string.sub(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("CakePrinceSpawner"),39,39))
+                else
+                    MobKilled:SetDesc("Boss Is Spawning")
+                end
+            end)
+        end
+    end)
+    
         local Elite_Hunter_Status = Tabs.ST:AddParagraph({
         Title = "Elite Status",
         Content = ""
