@@ -924,7 +924,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
     Title = "Xemo Hub ",
-    SubTitle = "Vạn Vật Nằm Im",
+    SubTitle = "by HyperShin",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -1919,6 +1919,109 @@ local Time = Tabs.ST:AddParagraph({
     end)
 end)
     
+ --Local Player
+ 
+     Tabs.LC:AddParagraph({
+        Title = "",
+        Content  = "Open Ui"
+    })
+    
+    Tabs.LC:AddButton({
+        Title = "Open Devil Fruit Shop",
+        Description = "",
+        Callback = function()
+            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetFruits")
+      	game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitShop.Visible = true
+        end
+    })
+    
+    Tabs.LC:AddButton({
+        Title = "Open Haki",
+        Description = "",
+        Callback = function()
+            game.Players.localPlayer.PlayerGui.Main.Colors.Visible = true
+        end
+    })
+    
+    Tabs.LC:AddButton({
+        Title = "Open Title Name",
+        Description = "",
+        Callback = function()
+            local args = {
+        [1] = "getTitles"
+        }
+        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+      	game.Players.localPlayer.PlayerGui.Main.Titles.Visible = true
+        end
+    })
+    
+         Tabs.LC:AddParagraph({
+        Title = "",
+        Content  = "ESP"
+    })
+    
+    local ToggleEspPlayer = Tabs.LC:AddToggle("ToggleEspPlayer", {Title = "Esp Player",Description = "", Default = false })
+
+ToggleEspPlayer:OnChanged(function(Value)
+    ESPPlayer = Value
+	UpdatePlayerChams()
+end)
+Options.ToggleEspPlayer:SetValue(false)
+
+
+local ToggleEspFruit = Tabs.LC:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "", Default = false })
+
+ToggleEspFruit:OnChanged(function(Value)
+    DevilFruitESP = Value
+    while DevilFruitESP do wait()
+        UpdateDevilChams() 
+    end
+end)
+Options.ToggleEspFruit:SetValue(false)
+
+
+
+
+local ToggleEspIsland = Tabs.LC:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "", Default = false })
+
+ToggleEspIsland:OnChanged(function(Value)
+    IslandESP = Value
+    while IslandESP do wait()
+        UpdateIslandESP() 
+    end
+end)
+Options.ToggleEspIsland:SetValue(false)
+
+
+local ToggleEspFlower = Tabs.LC:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "", Default = false })
+
+ToggleEspFlower:OnChanged(function(Value)
+    FlowerESP = Value
+	UpdateFlowerChams() 
+end)
+Options.ToggleEspFlower:SetValue(false)
+
+
+spawn(function()
+    while wait(2) do
+        if FlowerESP then
+            UpdateFlowerChams() 
+        end
+        if DevilFruitESP then
+            UpdateDevilChams() 
+        end
+        if ChestESP then
+            UpdateChestChams() 
+        end
+        if ESPPlayer then
+            UpdatePlayerChams()
+        end
+        if RealFruitESP then
+            UpdateRealFruitChams()
+        end
+    end
+end)
+
                 
 -- Settings Tab :
 
