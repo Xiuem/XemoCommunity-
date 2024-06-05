@@ -709,186 +709,6 @@ spawn(function()
       end)
     end)
   end)
-  
-      function StopTween(target)
-        if not target then
-            _G.StopTween = true
-            wait()
-            topos(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame)
-            wait()
-            if game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip") then
-                game:GetService("Players").LocalPlayer.Character.HumanoidRootPart:FindFirstChild("BodyClip"):Destroy()
-            end
-            _G.StopTween = false
-            _G.Clip = false
-        end
-    end
-    
-    spawn(function()
-        pcall(function()
-            while wait() do
-                for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do  
-                    if v:IsA("Tool") then
-                        if v:FindFirstChild("RemoteFunctionShoot") then 
-                            SelectWeaponGun = v.Name
-                        end
-                    end
-                end
-            end
-        end)
-    end)
-    
-    game:GetService("Players").LocalPlayer.Idled:connect(function()
-        game:GetService("VirtualUser"):Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-        wait(1)
-        game:GetService("VirtualUser"):Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-    end)
-
-    function CheckColorRipIndra()
-        mmb = {}
-        for r, v in next, game:GetService("Workspace").Map["Boat Castle"].Summoner.Circle:GetChildren() do
-            if v:IsA("Part") and v:FindFirstChild("Part") and v.Part.BrickColor.Name == "Dark stone grey" then
-                mmb[v.BrickColor.Name] = v
-            end
-        end
-        return mmb
-    end
-    function ActivateColor(cw)
-        haki = {["Hot pink"] = "Winter Sky", ["Really red"] ="Pure Red", ["Oyster"] = "Snow White"}
-        runnay = haki[cw]
-        if runnay then
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("activateColor", runnay)
-        end
-    end
-    function AutoActiveColorRip_Indra()
-        for r, v in pairs(CheckColorRipIndra()) do
-            ActivateColor(r)
-            topos(v.CFrame)
-            firetouchinterest(v.TouchInterest)
-        end
-    end
-
-_G.TargTrial = nil
-function targettrial()
-    if _G.TargTrial ~= nil then return end
-    local a = nil
-    local b = 450
-    for i,v in pairs(game.Players:GetChildren()) do
-        c = (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude
-        if c <= b and v ~= game.Players.LocalPlayer then
-            b = c 
-            a = v
-        end
-    end
-    if a == nil then return end
-    if _G.TargTrial ~= nil then return end
-    _G.TargTrial = a
-end
-    
-
-function CheckPirateBoat()
-    local cocailon = {"PirateBasic", "PirateBrigade"}
-    for r, v in next, game:GetService("Workspace").Enemies:GetChildren() do
-        if table.find(cocailon, v.Name) and v:FindFirstChild("Health") and v.Health.Value > 0 then
-            return v
-        end
-    end
-end
-
-function StoreFruit()
-    for i,v in pairs(thelocal.Backpack:GetChildren()) do
-        if v:IsA("Tool") and string.find(v.Name, "Fruit") then
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("StoreFruit",v:GetAttribute("OriginalName"),v)
-        end
-    end
-end
-
-if getgenv().NoDieEffect then
-    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Death") then
-        game:GetService("ReplicatedStorage").Effect.Container.Death:Destroy()
-    end
-    if game:GetService("ReplicatedStorage").Effect.Container:FindFirstChild("Respawn") then
-        game:GetService("ReplicatedStorage").Effect.Container.Respawn:Destroy()
-    end
-end
-
-	--Hard fast
-
-	local plr = game.Players.LocalPlayer
-	local CbFw = debug.getupvalues(require(plr.PlayerScripts.CombatFramework))
-	local CbFw2 = CbFw[2]
-
-	function GetCurrentBlade() 
-		local p13 = CbFw2.activeController
-		local ret = p13.blades[1]
-		if not ret then return end
-		while ret.Parent~=game.Players.LocalPlayer.Character do ret=ret.Parent end
-		return ret
-	end
-
-	function AttackNoCD()
-        if not Auto_Farm_Bounty and not Auto_Farm_Fruit or Mix_Farm then
-            if not Auto_Raid then
-                local AC = CbFw2.activeController
-                for i = 1, 1 do 
-                    local bladehit = require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(
-                        plr.Character,
-                        {plr.Character.HumanoidRootPart},
-                        60
-                    )
-                    local cac = {}
-                    local hash = {}
-                    for k, v in pairs(bladehit) do
-                        if v.Parent:FindFirstChild("HumanoidRootPart") and not hash[v.Parent] then
-                            table.insert(cac, v.Parent.HumanoidRootPart)
-                            hash[v.Parent] = true
-                        end
-                    end
-                    bladehit = cac
-                    if #bladehit > 0 then
-                        local u8 = debug.getupvalue(AC.attack, 5)
-                        local u9 = debug.getupvalue(AC.attack, 6)
-                        local u7 = debug.getupvalue(AC.attack, 4)
-                        local u10 = debug.getupvalue(AC.attack, 7)
-                        local u12 = (u8 * 798405 + u7 * 727595) % u9
-                        local u13 = u7 * 798405
-                        (function()
-                            u12 = (u12 * u9 + u13) % 1099511627776
-                            u8 = math.floor(u12 / u9)
-                            u7 = u12 - u8 * u9
-                        end)()
-                        u10 = u10 + 1
-                        debug.setupvalue(AC.attack, 5, u8)
-                        debug.setupvalue(AC.attack, 6, u9)
-                        debug.setupvalue(AC.attack, 4, u7)
-                        debug.setupvalue(AC.attack, 7, u10)
-                        pcall(function()
-                            if plr.Character:FindFirstChildOfClass("Tool") and AC.blades and AC.blades[1] then
-                                AC.animator.anims.basic[1]:Play(0.01,0.01,0.01)
-                                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("weaponChange",tostring(GetCurrentBlade()))
-                                game.ReplicatedStorage.Remotes.Validator:FireServer(math.floor(u12 / 1099511627776 * 16777215), u10)
-                                game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, i, "")
-                            end
-                        end)
-                    end
-                end
-            end
-        end
-	end
-
-function getAllBladeHitsPlayers(Sizes)
-	local Hits = {}
-	local Client = game.Players.LocalPlayer
-	local Characters = game:GetService("Workspace").Characters:GetChildren()
-	for i=1,#Characters do local v = Characters[i]
-		local Human = v:FindFirstChildOfClass("Humanoid")
-		if v.Name ~= game.Players.LocalPlayer.Name and Human and Human.RootPart and Human.Health > 0 and Client:DistanceFromCharacter(Human.RootPart.Position) < Sizes+5 then
-			table.insert(Hits,Human.RootPart)
-		end
-	end
-	return Hits
-end
-
 
 -- Open & Close Ui : skid Night Hub
 
@@ -924,7 +744,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
     Title = "Xemo Hub ",
-    SubTitle = "by HyperShin",
+    SubTitle = "By HyperShin",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -948,13 +768,13 @@ local Tabs = {
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
     ST = Window:AddTab({ Title = "Status", Icon = "" }),
-    LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
+    UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
     WE = Window:AddTab({ Title = "Webhook", Icon = "" }),
     TE = Window:AddTab({ Title = "Travel", Icon = "" }),
     MI = Window:AddTab({ Title = "Misc", Icon = "" }),
+    LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     CO = Window:AddTab({ Title = "Combat", Icon = "" }),
-    UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "" }),
     S = Window:AddTab({ Title = "Settings", Icon = "" })
 }
@@ -1857,13 +1677,13 @@ local Time = Tabs.ST:AddParagraph({
     spawn(function()
         while wait() do
             pcall(function()
-                BoneCheck:SetDesc("Bone : "..(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check")))
+                BoneCheck:SetDesc("Your Bone : "..(game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("Bones","Check")))
             end)
         end
     end)
     
         local MobKilled = Tabs.ST:AddParagraph({
-        Title = "Dough King - Katakuri Status",
+        Title = "Dough Boss Status",
         Content = ""
     })
     
@@ -1919,108 +1739,38 @@ local Time = Tabs.ST:AddParagraph({
     end)
 end)
     
- --Local Player
+ --Race v4
  
-     Tabs.LC:AddParagraph({
+ Tabs.UR:AddParagraph({
         Title = "",
-        Content  = "Open Ui"
+        Content  = "Race v4"
     })
-    
-    Tabs.LC:AddButton({
-        Title = "Open Devil Fruit Shop",
-        Description = "",
-        Callback = function()
-            game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("GetFruits")
-      	game:GetService("Players").LocalPlayer.PlayerGui.Main.FruitShop.Visible = true
-        end
-    })
-    
-    Tabs.LC:AddButton({
-        Title = "Open Haki",
-        Description = "",
-        Callback = function()
-            game.Players.localPlayer.PlayerGui.Main.Colors.Visible = true
-        end
-    })
-    
-    Tabs.LC:AddButton({
-        Title = "Open Title Name",
-        Description = "",
-        Callback = function()
-            local args = {
-        [1] = "getTitles"
-        }
-        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
-      	game.Players.localPlayer.PlayerGui.Main.Titles.Visible = true
-        end
-    })
-    
-         Tabs.LC:AddParagraph({
-        Title = "",
-        Content  = "ESP"
-    })
-    
-    local ToggleEspPlayer = Tabs.LC:AddToggle("ToggleEspPlayer", {Title = "Esp Player",Description = "", Default = false })
-
-ToggleEspPlayer:OnChanged(function(Value)
-    ESPPlayer = Value
-	UpdatePlayerChams()
-end)
-Options.ToggleEspPlayer:SetValue(false)
-
-
-local ToggleEspFruit = Tabs.LC:AddToggle("ToggleEspFruit", {Title = "Esp Devil Fruit",Description = "", Default = false })
-
-ToggleEspFruit:OnChanged(function(Value)
-    DevilFruitESP = Value
-    while DevilFruitESP do wait()
-        UpdateDevilChams() 
+ 
+ Tabs.UR:AddButton({
+    Title = "Timple Of Time",
+    Description = "",
+    Callback = function()
+        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(28286.35546875, 14895.3017578125, 102.62469482421875)
     end
-end)
-Options.ToggleEspFruit:SetValue(false)
+})
 
 
-
-
-local ToggleEspIsland = Tabs.LC:AddToggle("ToggleEspIsland", {Title = "Esp Island",Description = "", Default = false })
-
-ToggleEspIsland:OnChanged(function(Value)
-    IslandESP = Value
-    while IslandESP do wait()
-        UpdateIslandESP() 
+Tabs.UR:AddButton({
+    Title = "Lever Pull",
+    Description = "",
+    Callback = function()
+        Tween2(CFrame.new(28575.181640625, 14936.6279296875, 72.31636810302734))
     end
-end)
-Options.ToggleEspIsland:SetValue(false)
+})
 
 
-local ToggleEspFlower = Tabs.LC:AddToggle("ToggleEspFlower", {Title = "Esp Flower",Description = "", Default = false })
-
-ToggleEspFlower:OnChanged(function(Value)
-    FlowerESP = Value
-	UpdateFlowerChams() 
-end)
-Options.ToggleEspFlower:SetValue(false)
-
-
-spawn(function()
-    while wait(2) do
-        if FlowerESP then
-            UpdateFlowerChams() 
-        end
-        if DevilFruitESP then
-            UpdateDevilChams() 
-        end
-        if ChestESP then
-            UpdateChestChams() 
-        end
-        if ESPPlayer then
-            UpdatePlayerChams()
-        end
-        if RealFruitESP then
-            UpdateRealFruitChams()
-        end
+Tabs.UR:AddButton({
+    Title = "Acient One",
+    Description = "",
+    Callback = function()
+        Tween2(CFrame.new(28981.552734375, 14888.4267578125, -120.245849609375))
     end
-end)
+})
 
                 
 -- Settings Tab :
@@ -2230,12 +1980,6 @@ spawn(function()
     end
 end)
 
-    local Toggle = Tabs.S:AddToggle("MyToggle", {Title = "Auto Click", Default = false })
-
-    Toggle:OnChanged(function(Value)
-      UFFF = Value
-    end)
-      
 local AutoBuso = Tabs.S:AddToggle("AutoBuso", {Title = "Auto Buso", Default = true })
 
 AutoBuso:OnChanged(function(Value)
@@ -2264,231 +2008,3 @@ end)
 
 Options.BypassTeleport:SetValue(true)
 end
-local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework"))
-local CombatFrameworkR = getupvalues(CombatFramework)[2]
-local RigController = require(game:GetService("Players")["LocalPlayer"].PlayerScripts.CombatFramework.RigController)
-local RigControllerR = getupvalues(RigController)[2]
-local realbhit = require(game.ReplicatedStorage.CombatFramework.RigLib)
-local cooldownfastattack = tick()
-
-new = {}
-function FastAttackConnectorFunction()
-    repeat wait() until game:IsLoaded()
-    repeat task.wait() until game.ReplicatedStorage
-    repeat task.wait() until game.Players
-    repeat task.wait() until game.Players.LocalPlayer
-    repeat task.wait() until game.Players.LocalPlayer:FindFirstChild("PlayerGui")
-    local CombatFramework = require(game:GetService("Players").LocalPlayer.PlayerScripts:WaitForChild("CombatFramework"))
-    local CombatFrameworkR = getupvalues(CombatFramework)[2]
-    local RigController = require(game:GetService("Players")["LocalPlayer"].PlayerScripts.CombatFramework.RigController)
-    local RigControllerR = getupvalues(RigController)[2]
-    local realbhit = require(game.ReplicatedStorage.CombatFramework.RigLib)
-    local cooldownfastattack = tick()
-
-
-    
-    ReturnFunctions = {}
-    function CurrentWeapon()
-        local ac = CombatFrameworkR.activeController
-        local ret = ac.blades[1]
-        if not ret then
-            return game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name
-        end
-        pcall(
-            function()
-                while ret.Parent ~= game.Players.LocalPlayer.Character do
-                    ret = ret.Parent
-                end
-            end
-        )
-        if not ret then
-            return game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Name
-        end
-        return ret
-    end
-    function AttackFunctgggggion()
-        if game.Players.LocalPlayer.Character.Stun.Value ~= 0 then
-            return nil
-        end
-        local ac = CombatFrameworkR.activeController
-        ac.hitboxMagnitude = 55
-        if ac and ac.equipped then
-            for indexincrement = 1, 1 do
-                local bladehit =require(game.ReplicatedStorage.CombatFramework.RigLib).getBladeHits(game.Players.LocalPlayer.Character,{game.Players.LocalPlayer.Character.HumanoidRootPart},60)
-                if #bladehit > 0 then
-                    local AcAttack8 = debug.getupvalue(ac.attack, 5)
-                    local AcAttack9 = debug.getupvalue(ac.attack, 6)
-                    local AcAttack7 = debug.getupvalue(ac.attack, 4)
-                    local AcAttack10 = debug.getupvalue(ac.attack, 7)
-                    local NumberAc12 = (AcAttack8 * 798405 + AcAttack7 * 727595) % AcAttack9
-                    local NumberAc13 = AcAttack7 * 798405
-                    (function()
-                        NumberAc12 = (NumberAc12 * AcAttack9 + NumberAc13) % 1099511627776
-                        AcAttack8 = math.floor(NumberAc12 / AcAttack9)
-                        AcAttack7 = NumberAc12 - AcAttack8 * AcAttack9
-                    end)()
-                    AcAttack10 = AcAttack10 + 1
-                    debug.setupvalue(ac.attack, 5, AcAttack8)
-                    debug.setupvalue(ac.attack, 6, AcAttack9)
-                    debug.setupvalue(ac.attack, 4, AcAttack7)
-                    debug.setupvalue(ac.attack, 7, AcAttack10)
-                    for k, v in pairs(ac.animator.anims.basic) do
-                        v:Play(0.01,0.01,0.01)
-                    end
-                    if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") and ac.blades and ac.blades[1] then
-                        game:GetService("ReplicatedStorage").RigControllerEvent:FireServer(
-                            "weaponChange",
-                            tostring(CurrentWeapon())
-                        )
-                        game:GetService("ReplicatedStorage").RigControllerEvent:FireServer("hit", bladehit, 2, "")
-                    end
-                end
-            end
-        end
-    end
-    CountAttack = 0  
-    TickCountAttack = tick()
-    spawn(function()
-        local MT = getrawmetatable(game)
-        local OldNameCall = MT.__namecall
-        setreadonly(MT, false)
-        MT.__namecall = newcclosure(function(self, ...)
-            local Method = getnamecallmethod()
-            local Args = {...}
-            if Method == 'FireServer' and self.Name == "RigControllerEvent" and  Args[1] == "hit"  then
-                CountAttack = CountAttack + 1 
-                TickCountAttack = tick()
-            end
-            return OldNameCall(self, unpack(Args))
-        end)
-    end)
-    function ReturnFunctions:GetCount()
-        return CountAttack
-    end
-    function ReturnFunctions:Attack(k)
-        UFFF = k 
-    end
-    FastAttackSettings = {
-        ["CDAAT"] = 80,
-        ["TimeWait"] = 10
-    }
-    spawn(function()
-        local CameraShakerR = require(game.ReplicatedStorage.Util.CameraShaker)
-        CameraShakerR:Stop()
-    end)
-    function ReturnFunctions:InputValue(CDAAT,TimeWait)
-        FastAttackSettings["CDAAT"] = CDAAT
-        FastAttackSettings["TimeWait"] = TimeWait
-    end
-    function ReturnFunctions:InputSetting(tbbb)
-        conchosetting = tbbb
-    end
-    function atack()
-        pcall(function()
-            AttackFunctgggggion()
-        end)
-    end
-    ToiCanOxi = 0
-    conchosetting = {}
-    function ReturnFunctions:GetMethod()
-        MethodAttack = "Slow"
-        if CountAttack < FastAttackSettings["CDAAT"] then 
-            MethodAttack = "Fast"
-        end 
-        return MethodAttack
-    end
-    spawn(function()
-        while task.wait() do 
-            if UFFF then 
-                pcall(function()
-                    if conchosetting and type(conchosetting) == "table" then 
-                        if conchosetting and conchosetting["Mastery Farm"] then 
-                            ToiCanOxi = 2 
-                            atack()
-                            if conchosetting["DelayAttack"] and type(conchosetting["DelayAttack"]) == "number" and conchosetting["DelayAttack"] >= 0.1 then 
-                                wait(conchosetting["DelayAttack"])
-                            else
-                                conchosetting["DelayAttack"] = 0.2 
-                                wait(conchosetting["DelayAttack"])
-                            end
-                        elseif CountAttack < FastAttackSettings["CDAAT"] then 
-                            ToiCanOxi = ToiCanOxi +1
-                            atack()
-                        elseif CountAttack >= FastAttackSettings["CDAAT"] then 
-                            ToiCanOxi = ToiCanOxi +1
-                            atack()
-                            if conchosetting["DelayAttack"] and type(conchosetting["DelayAttack"]) == "number" and conchosetting["DelayAttack"] >= 0.1 then 
-                                wait(conchosetting["DelayAttack"]*2)
-                            else
-                                conchosetting["DelayAttack"] = 0.2 
-                                wait(conchosetting["DelayAttack"]*2)
-                            end
-                        end
-                    end
-                end)
-            end
-        end
-    end) 
-    spawn(function()
-        while task.wait() do 
-            pcall(function() 
-                if tick()-TickCountAttack >= FastAttackSettings["TimeWait"] then 
-                    CountAttack = 0 
-                end
-            end)
-        end
-    end)
-    spawn(function()
-        while task.wait() do 
-            if UFFF then 
-                pcall(function()
-                    local Fastflux = getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))[2]
-                    Fastflux.activeController.hitboxMagnitude = 55
-                    Fastflux.activeController.timeToNextAttack = 0
-                    Fastflux.activeController.attacking = false
-                    Fastflux.activeController.increment = 3
-                    Fastflux.activeController.blocking = false
-                    Fastflux.activeController.timeToNextBlock = 0
-                    Fastflux.activeController:attack()
-                    task.wait(0.2)
-                end)
-            end
-        end
-    end)
-    spawn(function()
-        while task.wait() do 
-            if UFFF then 
-                pcall(function()
-                    local Fastflux = getupvalues(require(game:GetService("Players").LocalPlayer.PlayerScripts.CombatFramework))[2]
-                    Fastflux.activeController.hitboxMagnitude = 55
-                    Fastflux.activeController.timeToNextAttack = 0
-                    Fastflux.activeController.attacking = false
-                    Fastflux.activeController.increment = 3
-                    Fastflux.activeController.blocking = false
-                    Fastflux.activeController.timeToNextBlock = 0
-                    a = math.random(1,5)
-                    if a > 1 then 
-                        game:GetService "VirtualUser":CaptureController()
-                        game:GetService "VirtualUser":Button1Down(Vector2.new(50, 50))
-                    end
-                    task.wait(0.2)
-                end)
-            end
-        end
-    end)
-    spawn(function()
-        while wait() do 
-            if UFFF then
-                pcall(function() 
-                    if CountAttack >= FastAttackSettings["CDAAT"] then 
-                        TickFastAttackF = tick()
-                        repeat wait() until tick()-TickFastAttackF >= FastAttackSettings["TimeWait"]
-                        CountAttack = 0
-                    end    
-                end)  
-            end
-        end
-    end)
-    return ReturnFunctions
-end
-return FastAttackConnectorFunction()
