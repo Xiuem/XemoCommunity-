@@ -1756,22 +1756,20 @@ end)
 
 
 Tabs.UR:AddButton({
-    Title = "Lever Pull",
-    Description = "",
-    Callback = function()
-        Tween2(CFrame.new(28575.181640625, 14936.6279296875, 72.31636810302734))
-    end
-})
-
+        Title = "TP Tele Đến Chỗ Gạt Cần",
+        Description = "",
+        Callback = function()            
+             topos(CFrame.new(28575.181640625, 14936.6279296875, 72.31636810302734))
+        end
+    })
 
 Tabs.UR:AddButton({
-    Title = "Acient One",
-    Description = "",
-    Callback = function()
-        Tween2(CFrame.new(28981.552734375, 14888.4267578125, -120.245849609375))
-    end
-})
-
+        Title = "TP Acient One",
+        Description = "",
+        Callback = function()            
+             topos(CFrame.new(28981.552734375, 14888.4267578125, -120.245849609375))
+        end
+    })
                 
 -- Settings Tab :
 
