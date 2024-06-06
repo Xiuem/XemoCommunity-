@@ -744,7 +744,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
     Title = "Xemo Hub ",
-    SubTitle = "By HyperShin",
+    SubTitle = "Vạn Vật Nằm Im",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -768,13 +768,13 @@ local Tabs = {
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
     ST = Window:AddTab({ Title = "Status", Icon = "" }),
-    UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
+    LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     WE = Window:AddTab({ Title = "Webhook", Icon = "" }),
     TE = Window:AddTab({ Title = "Travel", Icon = "" }),
     MI = Window:AddTab({ Title = "Misc", Icon = "" }),
-    LC = Window:AddTab({ Title = "Local Player", Icon = "" }),
     IQ = Window:AddTab({ Title = "Items", Icon = "" }),
     CO = Window:AddTab({ Title = "Combat", Icon = "" }),
+    UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "" }),
     S = Window:AddTab({ Title = "Settings", Icon = "" })
 }
@@ -1739,37 +1739,6 @@ local Time = Tabs.ST:AddParagraph({
     end)
 end)
     
- --Race v4
- 
- Tabs.UR:AddParagraph({
-        Title = "",
-        Content  = "Race v4"
-    })
- 
- Tabs.UR:AddButton({
-    Title = "Timple Of Time",
-    Description = "",
-    Callback = function()
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(28286.35546875, 14895.3017578125, 102.62469482421875)
-    end
-})
-
-
-Tabs.UR:AddButton({
-        Title = "TP Tele Đến Chỗ Gạt Cần",
-        Description = "",
-        Callback = function()            
-             topos(CFrame.new(28575.181640625, 14936.6279296875, 72.31636810302734))
-        end
-    })
-
-Tabs.UR:AddButton({
-        Title = "TP Acient One",
-        Description = "",
-        Callback = function()            
-             topos(CFrame.new(28981.552734375, 14888.4267578125, -120.245849609375))
-        end
-    })
                 
 -- Settings Tab :
 
