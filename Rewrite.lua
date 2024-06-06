@@ -2189,17 +2189,28 @@ function getAllBladeHitsPlayers(Sizes)
 end
 
     local Window = Fluent:CreateWindow({
-    Title = "Xemo Hub" ,
-    SubTitle = "By HHoang",
-    TabWidth = 120,
+    Title = "Xemo Hub ",
+    SubTitle = "Vạn Vật Nằm Im",
+    TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
-    Acrylic = false, -- The blur may be detectable, setting this to false disables blur entirely
+    Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
     Theme = "Darker",
-    MinimizeKey = Enum.KeyCode.LeftControl -- Used when theres no MinimizeKeybind
+    MinimizeKey = Enum.KeyCode.End -- Used when theres no MinimizeKeybind
+})
+
+local Options = Fluent.Options
+
+do
+
+Fluent:Notify({
+    Title = "Xemo Hub",
+    Content = ".............",
+    SubContent = "@"..game.Players.LocalPlayer.Name.." wait Script load..", -- Optional
+    Duration = 5 -- Set to nil to make the notification not disappear
 })
 
 local Tabs = {
-	Settings = Window:AddTab({ Title = "Setting", Icon = "" }),
+    Settings= Window:AddTab({ Title = "Settings", Icon = "" })
     G = Window:AddTab({ Title = "Main", Icon = "" }),
     O = Window:AddTab({ Title = "Shop", Icon = "" }),
     RE = Window:AddTab({ Title = "Reduce", Icon = "" }),
@@ -2213,17 +2224,6 @@ local Tabs = {
     UR = Window:AddTab({ Title = "Race v4", Icon = "" }),
     SE = Window:AddTab({ Title = "Sea Event", Icon = "" }),
 }
-
-local Options = Fluent.Options
-
-do
-
-Fluent:Notify({
-    Title = "Xemo Hub",
-    Content = ".............",
-    SubContent = "@"..game.Players.LocalPlayer.Name.." wait Script load..", -- Optional
-    Duration = 5 -- Set to nil to make the notification not disappear
-})
      
          Tabs.Settings:AddParagraph({
         Title = "",
