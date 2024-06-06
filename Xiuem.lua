@@ -710,7 +710,7 @@ spawn(function()
     end)
   end)
 
--- Open & Close Ui : skid Night Hub
+-- Open & Close Ui
 
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
@@ -744,7 +744,7 @@ local InterfaceManager = loadstring(game:HttpGet("https://raw.githubusercontent.
 
 local Window = Fluent:CreateWindow({
     Title = "Xemo Hub ",
-    SubTitle = "Vạn Vật Nằm Im",
+    SubTitle = "By HyperX",
     TabWidth = 160,
     Size = UDim2.fromOffset(450, 300),
     Acrylic = true, -- The blur may be detectable, setting this to false disables blur entirely
@@ -780,11 +780,6 @@ local Tabs = {
 }
 
 -- General Tab :
-
-Tabs.G:AddParagraph({
-        Title = "",
-        Content  = "Settings Fram"
-    })
 
 local SelectWP = Tabs.G:AddDropdown("Select Weapons", {
     Title = "Select Weapons",
@@ -1259,20 +1254,49 @@ spawn(function()
     end
 end)
 
-local AutoPirates = Tabs.G:AddToggle("AutoPirates", {Title = "Auto Pirates[Error]", Default = false })
+        local Toggle = Tabs.G:AddToggle("MyToggle", {Title = "Pirate Raid[Beta]", Default = false })
 
-AutoPirates:OnChanged(function(Value)
-    _G.AutoPirates = Value
-end)
-
-Options.AutoPirates:SetValue(false)
-
+    Toggle:OnChanged(function(Value)
+        _G.AutoRaidPirate = Value
+    StopTween(_G.AutoRaidPirate)
+    end)
+        
+        spawn(function()
+	while wait() do
+		if _G.AutoRaidPirate then
+			pcall(function()
+				local CFrameBoss = CFrame.new(-5496.17432, 313.768921, -2841.53027, 0.924894512, 7.37058015e-09, 0.380223751, 3.5881019e-08, 1, -1.06665446e-07, -0.380223751, 1.12297109e-07, 0.924894512)
+				if (CFrame.new(-5539.3115234375, 313.800537109375, -2972.372314453125).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 500 then
+					for i,v in pairs(game:GetService("Workspace").Enemies:GetChildren()) do
+						if _G.AutoRaidPirate and v:FindFirstChild("HumanoidRootPart") and v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 then
+							if (v.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude < 2000 then
+								repeat wait()
+									AutoHaki()
+									EquipWeapon(_G.SelectWeapon)
+									Fastattack = true
+									MakoriGayMag = true
+									v.HumanoidRootPart.CanCollide = false
+									v.HumanoidRootPart.Size = Vector3.new(60, 60, 60)
+									topos(v.HumanoidRootPart.CFrame * CFrame.new(PosX,PosY,PosZ))
+								until v.Humanoid.Health <= 0 or not v.Parent or _G.AutoRaidPirate == false
+								Fastattack = false
+								MakoriGayMag = false
+							end
+						end
+					end
+				else
+					if ((CFrameBoss).Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).magnitude <= 1500 then
+						topos(CFrameBoss)
+					else
+						BTP(CFrameBoss)
+					end
+				end
+			end)
+		end
+	end
+    end)
+    
 -- Shop
-
-Tabs.O:AddParagraph({
-        Title = "",
-        Content  = "Fighting Style"
-    })
 
 Tabs.O:AddButton({
         Title = "Buy Sanguine Art",
@@ -1516,11 +1540,6 @@ game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer("BlackbeardRewa
     
 -- Reduce
 
-Tabs.RE:AddParagraph({
-        Title = "",
-        Content = "Reduce Lag For The game"
-    })
-
 Tabs.RE:AddButton({
         Title = "Unlock Fps",
         Description = "",
@@ -1683,7 +1702,7 @@ local Time = Tabs.ST:AddParagraph({
     end)
     
         local MobKilled = Tabs.ST:AddParagraph({
-        Title = "Dough Boss Status",
+        Title = "katakuri ",
         Content = ""
     })
     
@@ -1741,11 +1760,6 @@ end)
     
                 
 -- Settings Tab :
-
-Tabs.S:AddParagraph({
-        Title = "",
-        Content  = "Setting"
-    })
 
 local FastAttack = Tabs.S:AddToggle("FastAttack", {Title = "FastAttack", Default = true })
 
