@@ -2217,26 +2217,6 @@ local Tabs = {
 local Options = Fluent.Options
 
 do
-     
-     Tabs.About:AddParagraph({
-        Title = "⚡Version⚡",
-        Content = "1.0.0"
-    })
-
-  Tabs.About:AddParagraph({
-        Title = "🌍 Apple Hub On Top🌍",
-        Content = "Anti Banana hub"
-    })
-    
-    Tabs.About:AddParagraph({
-        Title = "🐢Discord🐢",
-        Content = "............"
-    })
-    
-    Tabs.About:AddParagraph({
-        Title = "🍕There may be errors I will try to fix them🍕",
-        Content = "How to solve the worry"
-    })
     
 Fluent:Notify({
         Title = "Xemo Hub",
