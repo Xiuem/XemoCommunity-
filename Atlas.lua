@@ -2518,56 +2518,6 @@ local Toggle = Tabs.Settings:AddToggle("MyToggle", {Title = "Bypass Teleport", D
         end
     end
 end)
-
-local Toggle = Tabs.Settings:AddToggle("MyToggle", {Title = "Remove Effect ", Default = true })
-
-    Toggle:OnChanged(function(Value)
-        _G.Remove_Effect = Value		
-    end)
-    
-    spawn(function()
-    game:GetService('RunService').Stepped:Connect(function()
-        if _G.Remove_Effect then
-            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
-                if v.Name == "Death" then
-                    v:Destroy() 
-                end
-            end
-        end
-    end)
-    end)
-
-local Toggle = Tabs.Settings:AddToggle("MyToggle", {Title = "Remove Notify", Default = false })
-
-    Toggle:OnChanged(function(Value)
-        RemoveNotify = Value
-    end)
-    
-    spawn(function()
-        while wait() do
-            if RemoveNotify then
-                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
-            else
-                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
-            end
-        end
-    end)
-    
-    local Toggle = Tabs.Settings:AddToggle("MyToggle", {Title = "Remove Text", Default = true })
-
-    Toggle:OnChanged(function(Value)
-        Removetext = Value
-    end)
-    
-    spawn(function()
-        while wait() do
-            if Removetext then
-                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
-            else
-                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
-            end
-        end
-        end)
      
      local Slider = Tabs.Settings:AddSlider("Slider", {
         Title = "Kill Mob %[Mastery]",
@@ -2987,3 +2937,74 @@ spawn(function()
         end
     end
 end)
+
+local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Effect ", Default = true })
+
+    Toggle:OnChanged(function(Value)
+        _G.Remove_Effect = Value		
+    end)
+    
+    spawn(function()
+    game:GetService('RunService').Stepped:Connect(function()
+        if _G.Remove_Effect then
+            for i, v in pairs(game:GetService("ReplicatedStorage").Effect.Container:GetChildren()) do
+                if v.Name == "Death" then
+                    v:Destroy() 
+                end
+            end
+        end
+    end)
+    end)
+
+local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Notify", Default = false })
+
+    Toggle:OnChanged(function(Value)
+        RemoveNotify = Value
+    end)
+    
+    spawn(function()
+        while wait() do
+            if RemoveNotify then
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = false
+            else
+                game.Players.LocalPlayer.PlayerGui.Notifications.Enabled = true
+            end
+        end
+    end)
+    
+    local Toggle = Tabs.RE:AddToggle("MyToggle", {Title = "Remove Text", Default = true })
+
+    Toggle:OnChanged(function(Value)
+        Removetext = Value
+    end)
+    
+    spawn(function()
+        while wait() do
+            if Removetext then
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = false
+            else
+                game:GetService("ReplicatedStorage").Assets.GUI.DamageCounter.Enabled = true
+            end
+        end
+        end)
+
+local ScreenGui1 = Instance.new("ScreenGui")
+local ImageButton1 = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui1.Name = "ImageButton"
+ScreenGui1.Parent = game.CoreGui
+ScreenGui1.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton1.Parent = ScreenGui1
+ImageButton1.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton1.BorderSizePixel = 0
+ImageButton1.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
+ImageButton1.Size = UDim2.new(0, 50, 0, 50)
+ImageButton1.Draggable = true
+ImageButton1.Image = "rbxassetid://14299284116"
+ImageButton1.MouseButton1Down:connect(function()
+  game:GetService("VirtualInputManager"):SendKeyEvent(true,"LeftControl",false,game)
+  game:GetService("VirtualInputManager"):SendKeyEvent(false,"LeftControl",false,game)
+end)
+UICorner.Parent = ImageButton1
